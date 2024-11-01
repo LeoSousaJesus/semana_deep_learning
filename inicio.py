@@ -1,4 +1,4 @@
-import cv2
+import cv2 # pip install opencv-python
 
 # capturar a câmera
 cap = cv2.VideoCapture(0)
