@@ -9,7 +9,6 @@ import sys
 # Inicializa o mixer de áudio
 pygame.mixer.init()
 
-
 # Carrega o arquivo de som
 pygame.mixer.music.load("sonscerrado.mp3")
 
@@ -58,6 +57,13 @@ mp_face_mesh = mp.solutions.face_mesh
 
 # Estado do som
 som_tocando = False
+
+# Define o tamanho da janela
+window_width = 800
+window_height = 600
+
+cv2.namedWindow('Camera', cv2.WINDOW_NORMAL)
+cv2.resizeWindow('Camera', window_width, window_height)
 
 with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence=0.5) as facemesh:
     while cap.isOpened():
@@ -146,6 +152,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence
 
 cap.release()
 cv2.destroyAllWindows()
+
 
 
 # pip install opencv-python
