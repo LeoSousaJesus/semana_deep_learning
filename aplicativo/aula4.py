@@ -1,13 +1,14 @@
 #TODO: Objetivo
 
-# 3. Distância Euclediana (1D, 2D, 3D, n...)
-# 4. Media Calculo  (Calculo do EAR)
-
+# 1. Distância Euclediana (1D, 2D, 3D, n...)
+# 2. Media Calculo  (Calculo do EAR)
 
 
 import cv2 #pip install opencv-python
 #importando mediapipe
 import mediapipe as mp #pip install mediapipe
+# importando numpy
+import numpy as np
 
 # capturar a camêra
 cap = cv2.VideoCapture(0)
@@ -23,6 +24,25 @@ p_olho_esq = [385,380,387,373,362,263]
 # FIXME: listas dos pontos do olho direito 
 p_olho_dir = [160,144,158,153,33,133]
 p_olhos = p_olho_esq + p_olho_dir
+
+def calculo_ear(face,p_olho_dir,p_olho_esq):
+    try:
+        face = np.array([[coord.x,coord.y]   for coord in face])
+        face_esq = face[p_olho_esq,:]
+        face_dir = face[p_olho_dir,:]
+        ear_esq = (np.linalg.norm(face_esq[0]-face_esq[1])+np.linalg.norm(face_esq[2]-face_esq[3]))/(2*(np.linalg.norm(face_esq[4]-face_esq[5])))
+        ear_dir = (np.linalg.norm(face_dir[0]-face_dir[1])+np.linalg.norm(face_dir[2]-face_dir[3]))/(2*(np.linalg.norm(face_dir[4]-face_dir[5])))
+
+    except:
+        ear_esq=0.0
+        ear_dir=0.0
+    media_ear = (ear_esq+ear_dir)/2
+    return media_ear
+
+#FIXME:EAR (Usando distância Euclediana)
+
+
+
 
 # enquanto a camera estiver aberta
 with mp_face_mesh.FaceMesh(min_detection_confidence=0.5,min_tracking_confidence=0.5) as facemesh:
@@ -51,7 +71,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5,min_tracking_confidence=
             # 1 - frame : representa o frame de vídeo
             # 2 - face_landmarks: os landmarks detectados - pontos específicos
             # 3 - FACEMESH_CONTOURS - é uma constante que representa os contornos da face na malha facial.
-            # FIXME:face_landmarks - lista de pontos (usado no projeto)
+            #FIXME:face_landmarks - lista de pontos (usado no projeto)
             #NOTE: Linhas de Conexão
             mp_drawing.draw_landmarks(frame,face_landmarks,mp_face_mesh.FACEMESH_CONTOURS,landmarks_drawning_spec=mp_drawing.DrawingSpec(color=(255,102,102),thinckness=1,circle_radius=1),
                                       connection_drawing_spec = mp_drawing.DrawingSpec(color=(102,204,0),thickness=1,circle_radius=1)
@@ -63,8 +83,8 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5,min_tracking_confidence=
             for id_coord,coord_xyz in enumerate(face):
                 if id_coord in p_olhos:
                     coord_cv = mp_drawing._normalized_to_pixel_coordinates(coord_xyz.x,coord_xyz.y,largura,comprimento)
-                    cv2.circle(frame,coord_cv,coord_xyz,2,(255,0,0))
-
+                    cv2.circle(frame,coord_cv,coord_xyz,2,(255,0,0),-1)
+            #FIXME: aula_amanha (chamar o calculo EAR)
         cv2.imshow('Camera',frame)
 
         if cv2.waitKey(10) & 0xFF == ord('c'):
