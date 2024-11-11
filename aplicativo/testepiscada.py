@@ -150,7 +150,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence
                     som_boca_tocando = False
 
                 # Alarme para olhos fechados
-                if tempo_olhos_fechados >= 1.0 and not som_olho_tocando:
+                if tempo_olhos_fechados >= 1.5 and not som_olho_tocando:
                     cv2.rectangle(frame, (30, 400), (610, 452), (109, 233, 219), -1)
                     cv2.putText(frame, f"Olhos fechados por muito tempo!", (80, 435),
                                 cv2.FONT_HERSHEY_DUPLEX,
