@@ -97,7 +97,8 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5,min_tracking_confidence=
                             cv2.FONT_HERSHEY_DUPLEX,
                             0.9,
                             (255,255,255),
-                            2) 
+                            2)
+                 # definindo algoritmo do tempo           
                  # verificação da limiar
                 if ear < ear_limiar:
                     t_inicial = time.time() if dormindo == 0 else t_inicial
@@ -109,7 +110,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5,min_tracking_confidence=
                 tempo = (t_final-t_inicial) if dormindo == 1 else 0.0
                 cv2.putText(frame, f"Tempo: {round(tempo, 3)}", (1, 80),
                                         cv2.FONT_HERSHEY_DUPLEX,
-                                        0.9, (255, 255, 255), 2)
+                                        0.9, (255, 255, 255), 2)                      
                 # identificar sonolência
                 if tempo>=1.5:
                     cv2.rectangle(frame, (30, 400), (610, 452), (109, 233, 219), -1)
