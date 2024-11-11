@@ -146,7 +146,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence
                 # Exibe alerta se os olhos ficarem fechados por mais de 1.5 segundos
                 if tempo_olhos_fechados >= 1.5:
                     cv2.rectangle(frame, (30, 400), (610, 452), (109, 233, 219), -1)
-                    cv2.putText(frame, f"Alerta: Olhos fechados por muito tempo!", (80, 435),
+                    cv2.putText(frame, f"Olhos fechados por muito tempo!", (80, 435),
                                 cv2.FONT_HERSHEY_DUPLEX,
                                 0.85, (58, 58, 55), 1)
                     if not som_tocando:
@@ -164,7 +164,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence
                         aberto_boca = False
 
                 # Exibe o tempo da boca aberta
-                cv2.putText(frame, f"Tempo boca aberta: {round(tempo_boca_aberta, 3)}", (1, 110),
+                cv2.putText(frame, f"Tempo com a boca aberta: {round(tempo_boca_aberta, 3)}", (1, 110),
                             cv2.FONT_HERSHEY_DUPLEX,
                             0.9, (55, 255, 255), 2)
                 
