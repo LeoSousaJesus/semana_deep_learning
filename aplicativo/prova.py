@@ -191,6 +191,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence
         else:
             # Atualiza o estado e tempo quando nenhum rosto é detectado
             if rosto_detectado:
+                contagem_piscadas = 0  # Reinicia a contagem de piscadas quando nenhum rosto é detectado
                 tempo_inicial_aviso = time.time()
             rosto_detectado = False
 
