@@ -145,13 +145,13 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence
                     estado_olho = "abertos"
 
                 # Exibir estados e tempos na tela
-                cv2.rectangle(frame, (0, 0), (290, 100), (58, 58, 55), -1)  # Fundo do quadro
-                cv2.putText(frame, f"MAR - Boca: {estado_boca} - {round(tempo_boca_aberta, 2)}s", 
-                            (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
-                cv2.putText(frame, f"EAR - Olhos: {estado_olho} - {round(tempo_olhos_fechados, 2)}s", 
-                            (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
+                cv2.rectangle(frame, (0, 0), (320, 80), (58, 58, 55), -1)  # Fundo do quadro
+                cv2.putText(frame, f"MAR Boca: {estado_boca} - {round(tempo_boca_aberta, 2)}s", 
+                            (10, 30), cv2.FONT_HERSHEY_TRIPLEX, 0.6, (255, 255, 255), 1)
+                cv2.putText(frame, f"EAR Olhos: {estado_olho} - {round(tempo_olhos_fechados, 2)}s", 
+                            (10, 60), cv2.FONT_HERSHEY_TRIPLEX, 0.6, (255, 255, 255), 1)
                 cv2.putText(frame, f"Piscadas: {contagem_piscadas}", 
-                            (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
+                            (10, 90), cv2.FONT_HERSHEY_TRIPLEX, 0.6, (255, 255, 255), 1)
 
 
                 # Alarme para boca aberta
@@ -194,18 +194,7 @@ with mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence
                 tempo_inicial_aviso = time.time()
             rosto_detectado = False
 
-        # Exibe aviso de rosto detectado ou não detectado no canto superior direito por 5 segundos
-        if tempo_inicial_aviso and (time.time() - tempo_inicial_aviso <= 5):
-            mensagem = "Rosto detectado" if rosto_detectado else "Nenhum rosto detectado"
-            cor_texto = (0, 255, 0) if rosto_detectado else (0, 0, 255)  # Verde para detectado, vermelho para não detectado
-            largura_frame = frame.shape[1]
-            tamanho_texto = cv2.getTextSize(mensagem, cv2.FONT_HERSHEY_DUPLEX, 1.0, 2)[0]  # Obtém o tamanho do texto
-            posicao_x = largura_frame - tamanho_texto[0] - 10  # Calcula a posição x do texto para o canto direito
-            posicao_y = 30  # Altura fixa no canto superior
-            cv2.putText(frame, mensagem, (posicao_x, posicao_y), cv2.FONT_HERSHEY_DUPLEX, 1.0, cor_texto, 2)
-
-
-         # Exibe aviso de rosto detectado ou não detectado no canto superior direito por 5 segundos
+         # Exibe aviso de rosto detectado ou não detectado no canto superior direito
         if tempo_inicial_aviso and (time.time() - tempo_inicial_aviso <= 5):
             mensagem = "Rosto detectado" if rosto_detectado else "Nenhum rosto detectado"
             cor_texto = (0, 255, 0) if rosto_detectado else (0, 0, 255)  # Verde para detectado, vermelho para não detectado
